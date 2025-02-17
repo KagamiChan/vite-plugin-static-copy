@@ -1,5 +1,11 @@
 # vite-plugin-static-copy
 
+## 2.2.1
+
+### Patch Changes
+
+- speed up file copying
+
 ## 2.2.0
 
 ### Minor Changes
