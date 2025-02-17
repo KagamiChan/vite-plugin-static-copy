@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-static-copy",
+  "name": "@skagami/vite-plugin-static-copy",
   "version": "2.2.0",
   "description": "rollup-plugin-copy for vite with dev server support.",
   "type": "module",

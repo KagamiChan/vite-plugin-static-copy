@@ -2,13 +2,13 @@
   "$schema": "https://unpkg.com/@changesets/config@2.3.1/schema.json",
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "sapphi-red/vite-plugin-static-copy" }
+    { "repo": "KagamiChan/vite-plugin-static-copy" }
   ],
   "commit": false,
   "fixed": [],
   "linked": [],
   "access": "public",
-  "baseBranch": "main",
+  "baseBranch": "@skagami/vite-plugin-static-copy",
   "updateInternalDependencies": "patch",
   "ignore": []
 }
