@@ -11,6 +11,9 @@ import type {
 import type { Logger } from 'vite'
 import type { FileMap } from './serve'
 import { createHash } from 'node:crypto'
+import PQueue from 'p-queue'
+
+const queue = new PQueue({ concurrency: 5 })
 
 export type SimpleTarget = {
   src: string
@@ -160,7 +163,7 @@ export const copyAll = async (
   )
   let copiedCount = 0
 
-  for (const copyTarget of copyTargets) {
+  await queue.addAll<void>(copyTargets.map((copyTarget) => async () => {
     const { src, dest, transform, preserveTimestamps, dereference, overwrite } =
       copyTarget
 
@@ -168,6 +171,7 @@ export const copyAll = async (
     const resolvedSrc = path.resolve(rootSrc, src)
     const resolvedDest = path.resolve(rootSrc, rootDest, dest)
     const transformOption = resolveTransformOption(transform)
+    await fs.ensureDir(path.dirname(resolvedDest))
     if (transformOption) {
       const result = await transformCopy(
         transformOption,
@@ -187,7 +191,8 @@ export const copyAll = async (
       })
       copiedCount++
     }
-  }
+  }))
+
 
   return { targets: copyTargets.length, copied: copiedCount }
 }
